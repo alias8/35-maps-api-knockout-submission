@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Find Restaurants in Sydney!</title>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <div data-bind="with:markerModel">
+                <ul class="nav sidebar-nav-upper">
+                    <li class="sidebar-brand">
+                        <a href="#">Find Restaurants in Sydney!</a>
+                    </li>
+                    <li class="sidebar-brand">
+                        <input data-bind="textInput: filterWord" type="text" placeholder="Search type of restaurant">
+                    </li>
+                </ul>
+
+                <ul data-bind="foreach: filteredLocationsList" class="nav sidebar-nav">
+                    <li><a data-bind="text: title, click: populateInfoWindow" href="#"></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page-content-wrapper">\
+            <div data-bind="with: sideBar">
+                <button data-bind="click: toggleMenu" class="hamburger is-closed">
+                    <span class="hamb-top"></span>
+                    <span class="hamb-middle"></span>
+                    <span class="hamb-bottom"></span>
+                </button>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-bind="visible: markerModel().loading" class="overlay">
+                            <img class="loading-icon" src="images/default.svg" alt="loading icon"/>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAcMQM3dcwc9C9cOgZlxVohC9BB49k658c&v=3"></script>
+    <script src="./externals/require.js"></script>
+    <script src="./build/require-config.js"></script>
+    <script>
+        require(["build/viewmodel"]);
+    </script>
+</body>
+</html>
