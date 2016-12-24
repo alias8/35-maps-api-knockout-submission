@@ -8,14 +8,13 @@ This is a map of Sydney's popular restaurants and bars with details from Yelp.
 Browse from the [GitHub Pages](https://alias8.github.io/35-maps-api-knockout-submission/).
 
 or to run from your IDE,
+
 1. Download repository
+
 2. Navigate to directory where package.json is
-3. Open command-line interface and run:
 
-   ```
-   npm install
-   ```
-
+3. Open command-line interface and run:    
+```npm install```
 4. Run index.html in a browser. Manual compilation is not needed, Typescript files compile to Javascript ES6 upon saving.
 
 # Built With
