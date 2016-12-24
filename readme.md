@@ -11,9 +11,11 @@ or to run from your IDE,
 1. Download repository
 2. Navigate to directory where package.json is
 3. Open command-line interface and run:
+
    ```
    npm install
    ```
+
 4. Run index.html in a browser. Manual compilation is not needed, Typescript files compile to Javascript ES6 upon saving.
 
 # Built With
