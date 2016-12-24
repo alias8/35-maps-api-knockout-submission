@@ -1,7 +1,7 @@
 define(["require", "exports", "jquery", "knockout", "./streetview-service", "./yelp-service", "./viewmodel", "./locations-service"], function (require, exports, $, ko, streetview_service_1, yelp_service_1, viewmodel_1, locations_service_1) {
     "use strict";
     /**
-     *
+     * Class for holding the ko observables
      */
     class MarkerModel {
         constructor(map, bounds, infoWindow) {
@@ -27,6 +27,9 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
                 return filtered;
             }, this);
             this.getLocations();
+            /**
+             * Wait for locationsService promise to be fulfilled
+             */
             Promise.all([this.locationsService])
                 .then(() => {
                 this.locationsList = this.initBuildList(this.unmodifiedLocations);
@@ -42,10 +45,17 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
                 });
             });
         }
+        /**
+         * Dummy request from locationsService. Will wait 2 seconds before returning data.
+         * Expand LocationsService class to get data from a server in the future.
+         */
         getLocations() {
-            this.locationsService = locations_service_1.LocationsService.getLocationsSlowly() // or getLocationsSlowly()
+            this.locationsService = locations_service_1.LocationsService.getLocationsSlowly()
                 .then(locations => this.unmodifiedLocations = locations);
         }
+        /**
+         * Build array of Marker objects from the raw data returned from locationService
+         */
         initBuildList(list) {
             var markers = list.map((data, index) => {
                 data.map = this.map;

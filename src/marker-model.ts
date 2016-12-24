@@ -6,7 +6,7 @@ import { viewModel } from './viewmodel';
 import { LocationsService, Location } from './locations-service';
 
 /**
- * 
+ * Class for holding the ko observables
  */
 export class MarkerModel {
     private locationsList: Marker[] = [];
@@ -36,6 +36,9 @@ export class MarkerModel {
             this);
 
         this.getLocations();
+        /**
+         * Wait for locationsService promise to be fulfilled
+         */
         Promise.all([this.locationsService])
             .then(() => {
                 this.locationsList = this.initBuildList(this.unmodifiedLocations);
@@ -52,12 +55,18 @@ export class MarkerModel {
             });
     }
 
+    /**
+     * Dummy request from locationsService. Will wait 2 seconds before returning data.
+     * Expand LocationsService class to get data from a server in the future.
+     */
     getLocations(): void {
-        this.locationsService = LocationsService.getLocationsSlowly() // or getLocationsSlowly()
+        this.locationsService = LocationsService.getLocationsSlowly()
             .then(locations =>
                 this.unmodifiedLocations = locations);
     }
-
+    /**
+     * Build array of Marker objects from the raw data returned from locationService
+     */
     initBuildList(list: any): Marker[] {
         var markers = list.map((data: any, index: any) => {
             data.map = this.map;

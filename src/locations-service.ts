@@ -8,6 +8,10 @@ export class Location {
     }
 }
 
+/**
+ * Can be used by other classes to return a raw list of Location objects.
+ * In practice, this would be expanded to collect data from a server instead of locally.
+ */
 export class LocationsService {
     static getLocations(): Promise<Location[]> {
         return Promise.resolve(LOCATIONS);

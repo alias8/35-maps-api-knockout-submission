@@ -1,5 +1,7 @@
 ﻿import * as $ from 'jquery';
-
+/**
+ * Knockout implementation of sidebar 
+ */
 export class Sidebar {
     private button: any;
     private isClosed: boolean;

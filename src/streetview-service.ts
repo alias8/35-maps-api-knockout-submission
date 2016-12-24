@@ -1,5 +1,7 @@
 ﻿import {Marker} from './marker-model';
-
+/**
+ * Class for returning data to display streetview
+ */
 export class StreetViewService extends google.maps.StreetViewService {
     private radius = 50;
 

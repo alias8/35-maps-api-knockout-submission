@@ -1,5 +1,5 @@
 ﻿/**
- * Global objects 
+ * Global objects, used for LocationService class and google maps styling 
  */
 import { Location } from './locations-service';
 

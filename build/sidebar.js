@@ -1,5 +1,8 @@
 define(["require", "exports", "jquery"], function (require, exports, $) {
     "use strict";
+    /**
+     * Knockout implementation of sidebar
+     */
     class Sidebar {
         constructor() {
             this.isClosed = false;

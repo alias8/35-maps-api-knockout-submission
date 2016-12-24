@@ -1,6 +1,8 @@
 ﻿import * as $ from 'jquery';
 import * as oauthSignature from 'oauthSignature';
-
+/**
+ * Class for requesting data from Yelp API https://www.yelp.com.au/developers/documentation/v2/overview.
+ */
 export class YelpService {
 
     static YELP_KEY: string = 'EzR5NHsrfy7yuviBugck3Q';

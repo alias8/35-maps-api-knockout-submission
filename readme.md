@@ -5,7 +5,7 @@ Assignment submission for Udacity Front-End Web Developer Nanodegree "Project: N
 This is a map of Sydney's popular restaurants and bars with details from Yelp.
 
 # To Run
-Browse from the [GitHub Pages](https://alias8.github.io/34-maps-api-knockout-submission/).
+Browse from the [GitHub Pages](https://alias8.github.io/35-maps-api-knockout-submission/).
 
 or to run from your IDE,
 1. Download repository

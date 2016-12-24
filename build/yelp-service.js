@@ -1,5 +1,8 @@
 define(["require", "exports", "jquery", "oauthSignature"], function (require, exports, $, oauthSignature) {
     "use strict";
+    /**
+     * Class for requesting data from Yelp API https://www.yelp.com.au/developers/documentation/v2/overview.
+     */
     class YelpService {
         static nonce_generate() {
             return (Math.floor(Math.random() * 1e12).toString());

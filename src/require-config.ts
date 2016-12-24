@@ -1,4 +1,9 @@
-﻿declare var require: any;
+﻿/**
+ * RequireJS appears to be necessary when using TypeScript.
+ * This file is for preloading external libraries so that "export" and "import" keywords work
+ * https://github.com/requirejs/requirejs
+ */
+declare var require: any;
 require.config({
     paths: {
         knockout: "externals/knockout-3.4.1.debug",

@@ -1,5 +1,8 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    /**
+     * Class for returning data to display streetview
+     */
     class StreetViewService extends google.maps.StreetViewService {
         constructor() {
             super(...arguments);
