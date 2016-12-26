@@ -5,9 +5,9 @@
 export class Sidebar {
     private button: any;
     private isClosed: boolean;
-
+     
     constructor() {
-        this.isClosed = false;
+        this.isClosed = false; 
         this.button = $('.hamburger');
     }
 

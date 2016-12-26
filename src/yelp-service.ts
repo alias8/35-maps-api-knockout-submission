@@ -1,5 +1,5 @@
-﻿import * as $ from 'jquery';
-import * as oauthSignature from 'oauthSignature';
+﻿import * as $ from 'jquery'; // these are looking for the node_modules/@types/jquery/index.d.ts file
+import * as oauthSignature from 'oauthSignature'; // 
 /**
  * Class for requesting data from Yelp API https://www.yelp.com.au/developers/documentation/v2/overview.
  */
@@ -16,7 +16,7 @@ export class YelpService {
     }
 
     static searchRequest(name: string, latlng: string): Promise<any> {
-        var parameters = {
+        var parameters :any = {
             oauth_consumer_key: YelpService.YELP_KEY,
             oauth_token: YelpService.YELP_TOKEN,
             oauth_nonce: YelpService.nonce_generate(),

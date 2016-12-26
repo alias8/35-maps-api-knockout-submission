@@ -9,7 +9,7 @@ class ViewModel {
     bounds: google.maps.LatLngBounds;
     private markerModel: KnockoutObservable<MarkerModel>;
     private sideBar: KnockoutObservable<any>;
-
+     
     constructor() {
         this.map = new google.maps.Map(document.getElementById('map'),
             {
