@@ -46,6 +46,8 @@
             </main>
         </div>
     </div>
+    <script src="./externals/require.js"></script>
+    <script src="./build/require-config.js"></script>
     <script>
         function googleSuccess() {
             require(["build/viewmodel"]);
@@ -55,7 +57,6 @@
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAcMQM3dcwc9C9cOgZlxVohC9BB49k658c&v=3&callback=googleSuccess" onerror="googleError()"></script>
-    <script src="./externals/require.js"></script>
-    <script src="./build/require-config.js"></script>
+
 </body>
 </html>
