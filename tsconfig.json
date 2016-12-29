@@ -2,18 +2,18 @@
   "compileOnSave": true,
   "compilerOptions": {
     "outDir": "./build/",
-    "sourceMap": true,
+    "sourceMap": true, 
     "noImplicitAny": true,
     "module": "amd",
     "target": "es6"
   },
   "files": [
     "./src/globals.ts",
+    "./src/viewmodel.ts",
     "./src/marker-model.ts",
     "./src/require-config.ts",
     "./src/sidebar.ts",
     "./src/streetview-service.ts",
-    "./src/viewmodel.ts",
     "./src/yelp-service.ts"
   ]
 }

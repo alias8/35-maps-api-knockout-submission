@@ -22,12 +22,14 @@ export class MarkerModel {
         this.filteredLocationsList = ko.pureComputed (() => {
                 var re = new RegExp (this.filterWord (), 'i');
                 var filtered = this.locationsList
-                    .filter (item => {
-                        var match = re.test (item.getTitle ());
+                    .filter (marker => {
+                        var match = re.test (marker.getTitle ());
                         if (match) {
-                            item.setMap (map);
+                            //marker.setMap(map);
+                            marker.setVisible(true);
                         } else {
-                            item.setMap (null);
+                            //marker.setMap(null);
+                            marker.setVisible(false);
                         }
                         return match;
                     });
@@ -68,7 +70,7 @@ export class MarkerModel {
      * Build array of Marker objects from the raw data returned from locationService
      */
     initBuildList(list: any): Marker[] {
-        var markers = list.map((data: any, index: any) => {
+        var markers = list.map((data: any, index: number) => {
             data.map = this.map;
             data.animation = google.maps.Animation.DROP;
             data.id = index;
@@ -105,8 +107,9 @@ export class Marker extends google.maps.Marker {
             jquery: $('<div id="yelp-data">loading Yelp data...</div>')
         }
         this.streetViewData = {
-            pano_id: <string>null,
-            panoramaOptions: <google.maps.StreetViewPanoramaOptions>null
+            pano_id: null as string,
+            panoramaOptions: null as google.maps.StreetViewPanoramaOptions,
+            errorMessage: null as string
         }
         this.addListener('click', () => {
             this.populateInfoWindow();
@@ -147,12 +150,20 @@ export class Marker extends google.maps.Marker {
          */
         Promise.all([this.streetViewService, this.yelpService])
             .then(() => {
-                const panorama = new google.maps.StreetViewPanorama(
-                    document.getElementById('pano'),
-                    this.streetViewData.panoramaOptions);
-                panorama.setPano(this.streetViewData.pano_id);
-                panorama.setVisible(true);
-                $('#yelp-data').html(this.yelpData.jquery.html());
+                var content = $('<div id="infowindow-content"><div id="pano"></div></div>');
+                content.append(self.yelpData.jquery);
+                infoWindow.setContent(content.html()); // DOM manipulation is not done with jquery
+                if (this.streetViewData.errorMessage) {
+                    content.children('#pano').html(this.streetViewData.errorMessage);
+                    infoWindow.setContent(content.html()); // DOM manipulation is not done with jquery
+                } else {
+                    const panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('pano'),
+                        this.streetViewData.panoramaOptions);
+                    panorama.setPano(this.streetViewData.pano_id);
+                    panorama.setVisible(true);
+                }
+
             });
 
         function initOpenWindow() {
@@ -191,7 +202,7 @@ export class Marker extends google.maps.Marker {
                 this.streetViewData.panoramaOptions = result.panoramaOptions;
             })
             .catch(error => {
-                $('#pano').html('No Street View Found');
+                this.streetViewData.errorMessage = 'No Street View Found';
             });
     }
 

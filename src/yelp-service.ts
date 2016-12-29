@@ -5,11 +5,11 @@ import * as oauthSignature from 'oauthSignature'; //
  */
 export class YelpService {
 
-    static YELP_KEY: string = 'EzR5NHsrfy7yuviBugck3Q';
-    static YELP_TOKEN: string = '2rrqf_1gVHsrX859DsIaVc2i1an9-7a-';
-    static YELP_KEY_SECRET: string = 'gTQ9lhsM_VX1Nyq4Gi6fhr4z5bw';
-    static YELP_TOKEN_SECRET: string = 'txYfYZo1YGb-Zi4nYLKDQVSkEPA';
-    static YELP_BASE_URL_SEARCH: string = 'https://api.yelp.com/v2/search';
+    static YELP_KEY = 'EzR5NHsrfy7yuviBugck3Q';
+    static YELP_TOKEN = '2rrqf_1gVHsrX859DsIaVc2i1an9-7a-';
+    static YELP_KEY_SECRET = 'gTQ9lhsM_VX1Nyq4Gi6fhr4z5bw';
+    static YELP_TOKEN_SECRET = 'txYfYZo1YGb-Zi4nYLKDQVSkEPA';
+    static YELP_BASE_URL_SEARCH = 'https://api.yelp.com/v2/search';
 
     static nonce_generate(): string {
         return (Math.floor(Math.random() * 1e12).toString());
@@ -40,18 +40,12 @@ export class YelpService {
                 }
             );
 
-            var jsonpTimeout = setTimeout(() => {
-                reject('failed to get Yelp resources for ' + name);
-            },
-                8000);
-
             request.done(response => {
-                clearTimeout(jsonpTimeout);
                 resolve((response) as any);
             });
 
-            request.fail(error => {
-                // handled with timer
+            request.fail((jqXHR, textStatus) => {
+                reject('failed to get Yelp resources for ' + name);
             });
         });
     }

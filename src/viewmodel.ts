@@ -8,8 +8,8 @@ class ViewModel {
     infoWindow: google.maps.InfoWindow;
     bounds: google.maps.LatLngBounds;
     private markerModel: KnockoutObservable<MarkerModel>;
-    private sideBar: KnockoutObservable<any>;
-     
+    private sideBar: KnockoutObservable<any>; 
+
     constructor() {
         this.map = new google.maps.Map(document.getElementById('map'),
             {
@@ -21,12 +21,14 @@ class ViewModel {
         this.infoWindow = new google.maps.InfoWindow();
         this.bounds = new google.maps.LatLngBounds();
 
-        this.sideBar = ko.observable (new Sidebar ());
+        this.sideBar = ko.observable(new Sidebar());
         this.markerModel = ko.observable(new MarkerModel(this.map, this.bounds, this.infoWindow));
-        //Sidebar.onLoad();
-    }
-
+        google.maps.event.addDomListener(window, 'resize', () => {
+            this.map.fitBounds(this.bounds);
+        });
+    } 
 }
 
 export var viewModel = new ViewModel();
 ko.applyBindings(viewModel);
+

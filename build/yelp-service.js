@@ -27,15 +27,11 @@ define(["require", "exports", "jquery", "oauthSignature"], function (require, ex
                     cache: true,
                     dataType: 'jsonp'
                 });
-                var jsonpTimeout = setTimeout(() => {
-                    reject('failed to get Yelp resources for ' + name);
-                }, 8000);
                 request.done(response => {
-                    clearTimeout(jsonpTimeout);
                     resolve((response));
                 });
-                request.fail(error => {
-                    // handled with timer
+                request.fail((jqXHR, textStatus) => {
+                    reject('failed to get Yelp resources for ' + name);
                 });
             });
         }

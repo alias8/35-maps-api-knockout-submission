@@ -12,7 +12,9 @@ define(["require", "exports", "knockout", "./marker-model", "./sidebar", "./glob
             this.bounds = new google.maps.LatLngBounds();
             this.sideBar = ko.observable(new sidebar_1.Sidebar());
             this.markerModel = ko.observable(new marker_model_1.MarkerModel(this.map, this.bounds, this.infoWindow));
-            //Sidebar.onLoad();
+            google.maps.event.addDomListener(window, 'resize', () => {
+                this.map.fitBounds(this.bounds);
+            });
         }
     }
     exports.viewModel = new ViewModel();

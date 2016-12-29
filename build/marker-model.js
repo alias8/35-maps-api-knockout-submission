@@ -14,13 +14,15 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
             this.filteredLocationsList = ko.pureComputed(() => {
                 var re = new RegExp(this.filterWord(), 'i');
                 var filtered = this.locationsList
-                    .filter(item => {
-                    var match = re.test(item.getTitle());
+                    .filter(marker => {
+                    var match = re.test(marker.getTitle());
                     if (match) {
-                        item.setMap(map);
+                        //marker.setMap(map);
+                        marker.setVisible(true);
                     }
                     else {
-                        item.setMap(null);
+                        //marker.setMap(null);
+                        marker.setVisible(false);
                     }
                     return match;
                 });
@@ -85,7 +87,8 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
             };
             this.streetViewData = {
                 pano_id: null,
-                panoramaOptions: null
+                panoramaOptions: null,
+                errorMessage: null
             };
             this.addListener('click', () => {
                 this.populateInfoWindow();
@@ -122,10 +125,18 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
              */
             Promise.all([this.streetViewService, this.yelpService])
                 .then(() => {
-                const panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), this.streetViewData.panoramaOptions);
-                panorama.setPano(this.streetViewData.pano_id);
-                panorama.setVisible(true);
-                $('#yelp-data').html(this.yelpData.jquery.html());
+                var content = $('<div id="infowindow-content"><div id="pano"></div></div>');
+                content.append(self.yelpData.jquery);
+                infoWindow.setContent(content.html()); // DOM manipulation is not done with jquery
+                if (this.streetViewData.errorMessage) {
+                    content.children('#pano').html(this.streetViewData.errorMessage);
+                    infoWindow.setContent(content.html()); // DOM manipulation is not done with jquery
+                }
+                else {
+                    const panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), this.streetViewData.panoramaOptions);
+                    panorama.setPano(this.streetViewData.pano_id);
+                    panorama.setVisible(true);
+                }
             });
             function initOpenWindow() {
                 var content = $('<div id="infowindow-content"><div id="pano">Loading StreetView...</div></div>');
@@ -158,7 +169,7 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
                 this.streetViewData.panoramaOptions = result.panoramaOptions;
             })
                 .catch(error => {
-                $('#pano').html('No Street View Found');
+                this.streetViewData.errorMessage = 'No Street View Found';
             });
         }
         /**
