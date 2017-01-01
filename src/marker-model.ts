@@ -23,14 +23,8 @@ export class MarkerModel {
                 var re = new RegExp (this.filterWord (), 'i');
                 var filtered = this.locationsList
                     .filter (marker => {
-                        var match = re.test (marker.getTitle ());
-                        if (match) {
-                            //marker.setMap(map);
-                            marker.setVisible(true);
-                        } else {
-                            //marker.setMap(null);
-                            marker.setVisible(false);
-                        }
+                        var match = re.test(marker.getTitle());
+                        marker.setVisible(match);
                         return match;
                     });
                 return filtered;

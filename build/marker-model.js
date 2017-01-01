@@ -16,14 +16,7 @@ define(["require", "exports", "jquery", "knockout", "./streetview-service", "./y
                 var filtered = this.locationsList
                     .filter(marker => {
                     var match = re.test(marker.getTitle());
-                    if (match) {
-                        //marker.setMap(map);
-                        marker.setVisible(true);
-                    }
-                    else {
-                        //marker.setMap(null);
-                        marker.setVisible(false);
-                    }
+                    marker.setVisible(match);
                     return match;
                 });
                 return filtered;
